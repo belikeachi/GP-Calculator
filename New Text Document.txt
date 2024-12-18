@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GP Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            text-align: center;
+        }
+        header {
+            background-color: #6200ea;
+            color: white;
+            padding: 1em 0;
+        }
+        form {
+            margin: 2em auto;
+            padding: 1em;
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        input[type="file"] {
+            margin: 1em 0;
+        }
+        table {
+            width: 100%;
+            margin: 1em 0;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        .result {
+            font-size: 1.2em;
+            margin-top: 1em;
+        }
+        button {
+            background-color: #6200ea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3700b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>University GP Calculator</h1>
+    </header>
+
+    <form id="gpForm">
+        <h2>Upload Your Results</h2>
+        <p>Snap and upload pictures of your results for each semester (Year 1 to Year 4).</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Year</th>
+                    <th>Semester 1</th>
+                    <th>Semester 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Year 1</td>
+                    <td><input type="file" id="year1sem1" accept="image/*"></td>
+                    <td><input type="file" id="year1sem2" accept="image/*"></td>
+                </tr>
+                <tr>
+                    <td>Year 2</td>
+                    <td><input type="file" id="year2sem1" accept="image/*"></td>
+                    <td><input type="file" id="year2sem2" accept="image/*"></td>
+                </tr>
+                <tr>
+                    <td>Year 3</td>
+                    <td><input type="file" id="year3sem1" accept="image/*"></td>
+                    <td><input type="file" id="year3sem2" accept="image/*"></td>
+                </tr>
+                <tr>
+                    <td>Year 4</td>
+                    <td><input type="file" id="year4sem1" accept="image/*"></td>
+                    <td><input type="file" id="year4sem2" accept="image/*"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button type="button" onclick="calculateGP()">Calculate GP</button>
+    </form>
+
+    <div id="result" class="result"></div>
+
+    <script>
+        function calculateGP() {
+            const grades = [];
+            const inputs = document.querySelectorAll('input[type="file"]');
+            
+            inputs.forEach((input, index) => {
+                if (input.files.length === 0) {
+                    alert(`Please upload results for all semesters. Missing input in Semester ${Math.floor(index / 2) + 1}`);
+                    return;
+                }
+                // Simulating processing grades using OCR (to be implemented in backend or advanced frontend)
+                const mockGP = Math.random() * 2 + 2; // Generate random GP (between 2.0 and 4.0 for demo)
+                grades.push(mockGP);
+            });
+
+            if (grades.length === inputs.length) {
+                const totalGP = grades.reduce((sum, gp) => sum + gp, 0);
+                const overallGP = (totalGP / grades.length).toFixed(2);
+
+                document.getElementById('result').textContent = `Your cumulative GP is: ${overallGP}`;
+            }
+        }
+    </script>
+</body>
+</html>
